@@ -1,0 +1,142 @@
+---
+title: "data_comparison"
+author: "Hannah Dempsey"
+output: github_document
+---
+
+# Comparing Field Site Statistics
+
+Set up:
+
+```{r}
+library(tidyverse)
+
+#creating function to plot ecological data facet wrapped by species
+ecol_per_species <- function(data, species_vector, y_axis, y_label) {
+  graph <- data %>% 
+    filter(species %in% species_vector) %>% 
+    ggplot(., aes(x = year, y = {{y_axis}}, color = site)) +
+    geom_point(alpha = 0.5) +
+    geom_line(alpha = 0.5) +
+    facet_wrap(~species, scales = "free_y") + 
+    labs(y = y_label, x = "Year") +
+    theme_bw()
+  return(graph)
+}
+```
+
+### Biomass Data
+
+#### By species:
+
+Adding site column to dataframes:
+
+```{r}
+#loading in the data
+saguaro_biomass <- read_csv("../data_clean/saguaro_biomass.csv")
+orpi_biomass <- read_csv("../data_clean/orpi_biomass.csv")
+
+#adding site column to each dataframe
+saguaro_biomass <- saguaro_biomass %>% 
+  mutate(site = "Saguaro National Park")
+saguaro_biomass
+
+orpi_biomass <- orpi_biomass %>% 
+   mutate(site = "Organ Pipe National Monument")
+orpi_biomass
+```
+
+Bind dataframes into one:
+
+```{r}
+all_biomass <- bind_rows(saguaro_biomass, orpi_biomass)
+all_biomass
+```
+
+Plotting annual biomass of each species:
+
+```{r}
+#creating vector of species present in both sites
+shared_species <- c("albigula", "amplus", "baileyi", "eremicus", "merriami", "pennicillatus", "torridus")
+
+#plotting data
+ecol_per_species(all_biomass, shared_species, biomass_g, "Biomass (g)")
+ggsave("../figures/all_biomass.png")
+```
+
+#### By community:
+
+Adding site column to all dataframes:
+
+```{r}
+#loading in the data
+saguaro_total_biomass <- read_csv("../data_clean/saguaro_total_biomass.csv")
+orpi_total_biomass <- read_csv("../data_clean/orpi_total_biomass.csv")
+
+#adding site column to each dataframe
+saguaro_total_biomass <- saguaro_total_biomass %>% 
+  mutate(site = "Saguaro National Park")
+saguaro_total_biomass
+
+orpi_total_biomass <- orpi_total_biomass %>% 
+   mutate(site = "Organ Pipe National Monument")
+orpi_total_biomass
+```
+
+Bind dataframes into one:
+
+```{r}
+all_total_biomass <- bind_rows(saguaro_total_biomass, orpi_total_biomass)
+all_total_biomass
+```
+
+Plotting community biomass:
+
+```{r}
+ggplot(all_total_biomass, aes(x = year, y = biomass_g, color = site)) +
+  geom_point() +
+  geom_line() +
+  labs(y = "Total Biomass (g)", x = "Year") +
+  theme_bw()
+```
+
+### Abundance Data
+
+Loading in datasets:
+
+```{r}
+saguaro_abund <- read_csv("../data_clean/saguaro_abund_trapnights.csv")
+orpi_abund <- read_csv("../data_clean/orpi_abund_trapnights.csv")
+
+#removing superfluous columns
+saguaro_abund <- saguaro_abund %>% 
+  select(1, 2, 6)
+saguaro_abund
+
+orpi_abund <- orpi_abund %>% 
+  select(1, 2, 5)
+orpi_abund
+
+#adding site column to each dataframe
+saguaro_abund <- saguaro_abund %>% 
+  mutate(site = "Saguaro National Park")
+saguaro_abund
+
+orpi_abund <- orpi_abund %>% 
+   mutate(site = "Organ Pipe National Monument")
+orpi_abund
+```
+
+Bind dataframes into one
+
+```{r}
+all_abund <- bind_rows(saguaro_abund, orpi_abund)
+all_abund
+```
+
+Plotting abundance of each species:
+
+```{r}
+ecol_per_species(all_abund, shared_species, abund_per_trapnight, "Abundance per Trapnight")
+ggsave("../figures/all_abund.png")
+```

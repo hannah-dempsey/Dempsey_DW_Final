@@ -2,7 +2,7 @@
 
 ## Summary
 
-This is the repository for my final project in Data Wrangling. I will be analyzing rodent survey data from Organ Pipe National Monument, Saguaro National Park, and the Portal Project.
+This is the repository for my final project in Data Wrangling. I will be analyzing rodent survey data from Organ Pipe National Monument and Saguaro National Park
 
 ## Structure
 
@@ -17,5 +17,3 @@ figures: contains all produced figures
 ## Packages
 
 tidyverse: used for cleaning and summarizing data
-
-portalr: used to receive the data from the portal project
