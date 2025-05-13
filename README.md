@@ -10,7 +10,7 @@ This is the repository for my final project in Data Wrangling. I will be analyzi
 
 code: contains all files in which coding is performed
 
--   cleaning_data.Rmd: organizes and cleans data frame
+-   cleaning_data: organizes and cleans data frame
 
 -   saguaro_analysis and opri_analysis: analyse abundance and biomass data for each site
 
