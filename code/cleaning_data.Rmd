@@ -28,7 +28,7 @@ saguaro <- read_csv("../data_raw/saguaro_rodents.csv", skip = 5)
 Cleaning the dataset:
 
 ```{r}
-#Week 3 (select and filter), Week 4 (mutate and pipes), Week 6 (rename and separate), and Week 9 (write_cvs)
+#Week 3 (select and filter), Week 4 (mutate and pipes), Week 6 (rename and separate), Week 7 (strings), and Week 9 (write_cvs)
 
 saguaro_clean <- saguaro %>% 
   rename(Trap_Check_Date = `Trap Check Date`,
