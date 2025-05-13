@@ -9,8 +9,10 @@ output: github_document
 Set up:
 
 ```{r}
+#Week 3 (loading in packages)
+
+#install.packages("tidyverse")
 library(tidyverse)
-library(portalr)
 ```
 
 ## Saguaro National Park
@@ -18,12 +20,16 @@ library(portalr)
 Reading in the dataset:
 
 ```{r}
+#Week 3 (read_csv) and Week 9 (file paths)
+
 saguaro <- read_csv("../data_raw/saguaro_rodents.csv", skip = 5)
 ```
 
 Cleaning the dataset:
 
 ```{r}
+#Week 3 (select and filter), Week 4 (mutate and pipes), Week 6 (rename and separate), and Week 9 (write_cvs)
+
 saguaro_clean <- saguaro %>% 
   rename(Trap_Check_Date = `Trap Check Date`,
          Recapture = `Recapture?`,
@@ -53,6 +59,8 @@ write_csv(saguaro_clean, "../data_clean/saguaro_clean.csv")
 Reading in the datasets:
 
 ```{r}
+#Week 3 (read_csv) and Week 9 (file paths)
+
 orpi_species_codes <- read_csv("../data_raw/tluRodentSpecies.csv")
 orpi_data <- read_csv("../data_raw/RodentDetail.csv")
 orpi_surveys <- read_csv("../data_raw/RodentSurvey.csv")
@@ -61,6 +69,8 @@ orpi_surveys <- read_csv("../data_raw/RodentSurvey.csv")
 Cleaning the datasets:
 
 ```{r}
+#Week 3 (select), Week 4 (mutate, pipes, and joins), Week 6 (rename and separate), and Week 9 (write_csv)
+
 orpi_species_codes <- orpi_species_codes %>% 
   select(-5) %>% 
   rename_with(tolower) %>% 

@@ -9,9 +9,13 @@ output: github_document
 Set up:
 
 ```{r}
+#Week 3 (loading in packages and read_csv)
+
+#install.packages("tidyverse")
 library(tidyverse)
 
 #creating function to plot ecological data facet wrapped by species
+#Week 11 (creating functions)
 ecol_per_species <- function(data, species_vector, y_axis, y_label) {
   graph <- data %>% 
     filter(species %in% species_vector) %>% 
@@ -32,6 +36,7 @@ ecol_per_species <- function(data, species_vector, y_axis, y_label) {
 Adding site column to dataframes:
 
 ```{r}
+#Week 3 (read_csv), Week 4 (mutate), and Week 9 (file paths)
 #loading in the data
 saguaro_biomass <- read_csv("../data_clean/saguaro_biomass.csv")
 orpi_biomass <- read_csv("../data_clean/orpi_biomass.csv")
@@ -49,6 +54,7 @@ orpi_biomass
 Bind dataframes into one:
 
 ```{r}
+#Week 4 (bind_rows)
 all_biomass <- bind_rows(saguaro_biomass, orpi_biomass)
 all_biomass
 ```
@@ -56,10 +62,13 @@ all_biomass
 Plotting annual biomass of each species:
 
 ```{r}
+#Week 2 (vectors)
+
 #creating vector of species present in both sites
 shared_species <- c("albigula", "amplus", "baileyi", "eremicus", "merriami", "pennicillatus", "torridus")
 
 #plotting data
+#Week 5 (data visualization)
 ecol_per_species(all_biomass, shared_species, biomass_g, "Biomass (g)")
 ggsave("../figures/all_biomass.png")
 ```
@@ -69,6 +78,8 @@ ggsave("../figures/all_biomass.png")
 Adding site column to all dataframes:
 
 ```{r}
+#Week 3 (read_csv), Week 4 (mutate), and Week 9 (file paths)
+
 #loading in the data
 saguaro_total_biomass <- read_csv("../data_clean/saguaro_total_biomass.csv")
 orpi_total_biomass <- read_csv("../data_clean/orpi_total_biomass.csv")
@@ -86,6 +97,8 @@ orpi_total_biomass
 Bind dataframes into one:
 
 ```{r}
+#Week 4 (bind_rows)
+
 all_total_biomass <- bind_rows(saguaro_total_biomass, orpi_total_biomass)
 all_total_biomass
 ```
@@ -93,11 +106,14 @@ all_total_biomass
 Plotting community biomass:
 
 ```{r}
+#Week 5 (data visualization)
+
 ggplot(all_total_biomass, aes(x = year, y = biomass_g, color = site)) +
   geom_point() +
   geom_line() +
   labs(y = "Total Biomass (g)", x = "Year") +
   theme_bw()
+ggsave("../figures/orpi_and_saguaro_biomass.png")
 ```
 
 ### Abundance Data
@@ -105,6 +121,8 @@ ggplot(all_total_biomass, aes(x = year, y = biomass_g, color = site)) +
 Loading in datasets:
 
 ```{r}
+#Week 3 (read_csv and select), Week 4 (mutate), and Week 9 (file paths)
+
 saguaro_abund <- read_csv("../data_clean/saguaro_abund_trapnights.csv")
 orpi_abund <- read_csv("../data_clean/orpi_abund_trapnights.csv")
 
@@ -130,6 +148,8 @@ orpi_abund
 Bind dataframes into one
 
 ```{r}
+#Week 4 (bind_rows)
+
 all_abund <- bind_rows(saguaro_abund, orpi_abund)
 all_abund
 ```
@@ -137,6 +157,8 @@ all_abund
 Plotting abundance of each species:
 
 ```{r}
+#Week 5 (data visualization)
+
 ecol_per_species(all_abund, shared_species, abund_per_trapnight, "Abundance per Trapnight")
 ggsave("../figures/all_abund.png")
 ```

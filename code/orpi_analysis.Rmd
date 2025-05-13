@@ -9,6 +9,9 @@ output: github_document
 Set up:
 
 ```{r}
+#Week 3 (loading in packages and read_csv), and Week 9 (file paths)
+
+#install.packages("tidyverse")
 library(tidyverse)
 orpi_clean <- read_csv("../data_clean/orpi_clean.csv")
 orpi_surveys <- read_csv("../data_clean/orpi_surveys.csv")
@@ -19,6 +22,8 @@ orpi_surveys <- read_csv("../data_clean/orpi_surveys.csv")
 Summarize the survey data by year:
 
 ```{r}
+#Week 4 (mutate, pipes, group_by, summarize)
+
 trap_nights <- orpi_surveys %>% 
   mutate(year = year(end_date),
          nights = end_date - start_date,
@@ -31,6 +36,8 @@ trap_nights
 Calculate the annual abundance for each species per trapnight:
 
 ```{r}
+#Week 4 (mutate, pipes, group_by, summarize, and joins) and Week 9 (write_csv)
+
 rodents_per_trapnight <- orpi_clean %>% 
   mutate(year = year(end_date)) %>%  
   group_by(year, species) %>% 
@@ -46,6 +53,8 @@ write_csv(rodents_per_trapnight, "../data_clean/orpi_abund_trapnights.csv")
 Plotting abundance per trapnight:
 
 ```{r}
+#Week 5 (data visualization)
+
 #only one data point for maniculatus, so I'm removing it from the graph
 orpi_abundance <- rodents_per_trapnight %>% 
   filter(species != "maniculatus") %>% 
@@ -64,6 +73,8 @@ ggsave("../figures/orpi_abundance.png")
 Calculating average mass for each species:
 
 ```{r}
+#Week 4(pipes, group_by, and summarize)
+
 rodent_mass <- orpi_clean %>% 
   group_by(species) %>% 
   summarize(avg_mass_g = mean(weight, na.rm = TRUE))
@@ -73,6 +84,8 @@ rodent_mass
 Calculate the annual biomass of each species:
 
 ```{r}
+#Week 4 (mutate, pipes, group_by, summarize, and joins) and Week 9 (write_csv)
+
 biomass_annual <- rodents_per_trapnight %>% 
   inner_join(rodent_mass, join_by(species)) %>% 
   group_by(year, species) %>% 
@@ -86,6 +99,8 @@ write_csv(biomass_annual, "../data_clean/orpi_biomass.csv")
 Plotting annual biomass of each species:
 
 ```{r}
+#Week 5 (data visualization)
+
 #only one data point for maniculatus, so I'm removing it from the graph
 orpi_biomass <- biomass_annual %>% 
   filter(species != "maniculatus") %>% 
@@ -102,6 +117,8 @@ ggsave("../figures/orpi_biomass.png")
 Calculating annual community biomass:
 
 ```{r}
+#Week 4 (pipes, group_by, and summarize) and Week 9 (write_csv)
+
 total_biomass_annual <- biomass_annual %>% 
   group_by(year) %>% 
   summarize(biomass_g = sum(biomass_g))
@@ -114,6 +131,8 @@ write_csv(total_biomass_annual, "../data_clean/orpi_total_biomass.csv")
 Plotting annual community biomass:
 
 ```{r}
+#Week 5 (data visualization)
+
 orpi_total_biomass <- ggplot(total_biomass_annual, aes(x = year, y = biomass_g)) +
   geom_point() +
   geom_line() +

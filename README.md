@@ -2,7 +2,9 @@
 
 ## Summary
 
-This is the repository for my final project in Data Wrangling. I will be analyzing rodent survey data from Organ Pipe National Monument and Saguaro National Park
+This is the repository for my final project in Data Wrangling. I will be analyzing rodent survey data from Organ Pipe National Monument and Saguaro National Park. I will clean and summarize this data to visualize the community biomass and rodent abundance at each site and compare the changes between the two sites.
+
+(Week 8: Problem Decomposition)
 
 ## Structure
 
@@ -19,6 +21,10 @@ data_raw: contains raw/unmodified data tables
 data_clean: contains cleaned/modified data tables
 
 figures: contains all produced figures
+
+(Week 9: Contained in an RStudio Project with appropriate sub-directories and contains relative file paths)
+
+(Week 10: This project can be found in a GitHub repository)
 
 ## Packages
 
